@@ -22,6 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import AuthNavButtons from "./_components/auth-nav-buttons";
 
 interface MenuItem {
   title: string;
@@ -43,16 +44,6 @@ interface Navbar1Props {
     name: string;
     url: string;
   }[];
-  auth?: {
-    login: {
-      text: string;
-      url: string;
-    };
-    signup: {
-      text: string;
-      url: string;
-    };
-  };
 }
 
 export default async function HomePage({
@@ -134,10 +125,6 @@ export default async function HomePage({
       url: "#",
     },
   ],
-  auth = {
-    login: { text: "Sign in", url: "/sign-in" },
-    signup: { text: "Sign up", url: "/sign-up" },
-  },
 }: Navbar1Props) {
   return (
     <div className="container mx-auto p-4">
@@ -159,12 +146,7 @@ export default async function HomePage({
               </div>
             </div>
             <div className="flex gap-2">
-              <Button asChild variant="outline" size="sm">
-                <a href={auth.login.url}>{auth.login.text}</a>
-              </Button>
-              <Button asChild size="sm">
-                <a href={auth.signup.url}>{auth.signup.text}</a>
-              </Button>
+              <AuthNavButtons />
             </div>
           </nav>
           {/* Mobile Menu */}
@@ -201,12 +183,7 @@ export default async function HomePage({
                     </Accordion>
 
                     <div className="flex flex-col gap-3">
-                      <Button asChild variant="outline">
-                        <a href={auth.login.url}>{auth.login.text}</a>
-                      </Button>
-                      <Button asChild>
-                        <a href={auth.signup.url}>{auth.signup.text}</a>
-                      </Button>
+                      <AuthNavButtons />
                     </div>
                   </div>
                 </SheetContent>
