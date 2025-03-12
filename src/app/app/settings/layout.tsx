@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { Shell } from "@/components/header/shell";
 import { AppMenu } from "@/components/settings/app-menu";
 import { AppSidebar } from "@/components/settings/app-sidebar";
-import { PageId, pagesConfig } from "./pageConfig";
+import { PageId, pagesConfig } from "../../../config/pageConfig";
 
 export default function SettingsLayout({
   children,

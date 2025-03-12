@@ -9,9 +9,10 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-// import { AppSidebar } from "./app-sidebar";
+import { AppSidebar } from "./app-sidebar";
+import { Page } from "@/config/pageConfig";
 
-export function AppMenu({ page }) {
+export function AppMenu({ page }: { page: Page }) {
   const [open, setOpen] = React.useState(false);
 
   const selectedSegment = useSelectedLayoutSegment();
@@ -33,7 +34,7 @@ export function AppMenu({ page }) {
         </span>
       </CollapsibleTrigger>
       <CollapsibleContent className="mt-2">
-        {/* <AppSidebar page={page} /> */}
+        <AppSidebar page={page} />
       </CollapsibleContent>
     </Collapsible>
   );
