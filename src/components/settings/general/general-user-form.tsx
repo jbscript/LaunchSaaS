@@ -53,6 +53,7 @@ export function GeneralUserForm({ defaultValues }: { defaultValues: Schema }) {
         <FormField
           control={form.control}
           name="name"
+          disabled
           render={({ field }) => (
             <FormItem className="sm:col-span-4">
               <FormLabel>Name</FormLabel>
@@ -68,11 +69,12 @@ export function GeneralUserForm({ defaultValues }: { defaultValues: Schema }) {
         <FormField
           control={form.control}
           name="email"
+          disabled
           render={({ field }) => (
             <FormItem className="sm:col-span-4">
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email" disabled {...field} />
+                <Input placeholder="Email" {...field} />
               </FormControl>
               <FormDescription>
                 The email address of the workspace owner.
@@ -83,7 +85,7 @@ export function GeneralUserForm({ defaultValues }: { defaultValues: Schema }) {
         />
 
         <div className="sm:col-span-full">
-          <Button className="w-full sm:w-auto" size="lg">
+          <Button disabled className="w-full sm:w-auto" size="lg">
             {!isPending ? "Confirm" : "Loading..."}
           </Button>
         </div>
