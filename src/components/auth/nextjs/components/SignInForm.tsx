@@ -24,6 +24,7 @@ const Google = Icons["google"];
 
 export function SignInForm() {
   const [error, setError] = useState<string>();
+  const [loading, setloading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof signInSchema>>({
     defaultValues: {
       email: "",
@@ -32,8 +33,10 @@ export function SignInForm() {
   });
 
   async function onSubmit(data: z.infer<typeof signInSchema>) {
+    setloading(true);
     const error = await signIn(data);
     setError(error);
+    setloading(false);
   }
 
   return (
@@ -68,8 +71,8 @@ export function SignInForm() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
-            Sign In
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Loading..." : "Sign In"}
           </Button>
         </form>
       </Form>
