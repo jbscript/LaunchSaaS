@@ -158,6 +158,13 @@ export const pagesConfig = [
     segment: "settings",
     children: settingsPagesConfig,
   },
+  {
+    title: "Admin",
+    description: "Admin page",
+    href: "/admin",
+    icon: "cog",
+    segment: "admin",
+  },
 ] as const satisfies readonly Page[];
 
 type MarketingPageType = Page;
