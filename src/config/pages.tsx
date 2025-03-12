@@ -26,20 +26,14 @@ export const settingsPagesConfig: Page[] = [
     icon: "users",
     segment: "team",
   },
-  {
-    title: "API Token",
-    description: "API token settings for the workspace.",
-    href: "/settings/api-token",
-    icon: "key",
-    segment: "api-token",
-  },
-  {
-    title: "Billing",
-    description: "Billing settings for the workspace.",
-    href: "/settings/billing",
-    icon: "credit-card",
-    segment: "billing",
-  },
+
+  // {
+  //   title: "Billing",
+  //   description: "Billing settings for the workspace.",
+  //   href: "/settings/billing",
+  //   icon: "credit-card",
+  //   segment: "billing",
+  // },
   {
     title: "Appearance",
     description: "Appearance settings for the workspace.",
