@@ -120,7 +120,10 @@ export function SignUpForm() {
         >
           <Github className="h-5 w-5" />
         </Button>
-        <Button variant="outline">
+        <Button
+          variant="outline"
+          onClick={async () => await oAuthSignIn("google")}
+        >
           <Google className="h-5 w-5" />
         </Button>
       </div>

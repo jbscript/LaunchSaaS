@@ -15,6 +15,13 @@
       "when": 1738875490221,
       "tag": "0001_curly_quicksilver",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741793087745,
+      "tag": "0002_flaky_pandemic",
+      "breakpoints": true
     }
   ]
 }
