@@ -118,16 +118,6 @@ export const statusPagesPagesConfig: Page[] = [
   },
 ];
 
-const incidentPagesConfig: Page[] = [
-  {
-    title: "Overview",
-    description: "Timeline with all the actions.",
-    href: "/incidents/[id]/overview",
-    icon: "file-clock",
-    segment: "overview",
-  },
-];
-
 export const statusReportsPagesConfig: Page[] = [
   {
     title: "Overview",
@@ -159,36 +149,12 @@ export type PageId = (typeof pagesConfig)[number]["segment"];
 
 export const pagesConfig = [
   {
-    title: "Monitors",
+    title: "Dashboard",
     description: "Check all the responses in one place.",
-    href: "/monitors",
+    href: "/dashboard",
     icon: "activity",
     segment: "monitors",
     children: monitorPagesConfig,
-  },
-  {
-    title: "Incidents",
-    description: "All your incidents.",
-    href: "/incidents",
-    icon: "siren",
-    segment: "incidents",
-    children: incidentPagesConfig,
-  },
-  {
-    title: "Status Pages",
-    description: "Where you can see all the pages.",
-    href: "/status-pages",
-    icon: "panel-top",
-    segment: "status-pages",
-    children: statusPagesPagesConfig,
-  },
-  {
-    title: "Notifications",
-    description: "Where you can see all the notifications.",
-    href: "/notifications",
-    icon: "bell",
-    segment: "notifications",
-    children: notificationsPagesConfig,
   },
   {
     title: "Settings",
