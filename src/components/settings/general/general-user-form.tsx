@@ -1,5 +1,6 @@
 "use client";
 
+import { ToggleRoleButton } from "@/app/_components/ToggleRoleButton";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -45,51 +46,55 @@ export function GeneralUserForm({ defaultValues }: { defaultValues: Schema }) {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="grid w-full grid-cols-1 items-center gap-6 sm:grid-cols-6"
-      >
-        <FormField
-          control={form.control}
-          name="name"
-          disabled
-          render={({ field }) => (
-            <FormItem className="sm:col-span-4">
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Name" {...field} />
-              </FormControl>
-              <FormDescription>The name of your workspace.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid w-full grid-cols-1 items-center gap-6 sm:grid-cols-6"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            disabled
+            render={({ field }) => (
+              <FormItem className="sm:col-span-4">
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Name" {...field} />
+                </FormControl>
+                <FormDescription>The name of your workspace.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="email"
-          disabled
-          render={({ field }) => (
-            <FormItem className="sm:col-span-4">
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Email" {...field} />
-              </FormControl>
-              <FormDescription>
-                The email address of the workspace owner.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="email"
+            disabled
+            render={({ field }) => (
+              <FormItem className="sm:col-span-4">
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Email" {...field} />
+                </FormControl>
+                <FormDescription>
+                  The email address of the workspace owner.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <div className="sm:col-span-full">
-          <Button disabled className="w-full sm:w-auto" size="lg">
-            {!isPending ? "Confirm" : "Loading..."}
-          </Button>
-        </div>
-      </form>
-    </Form>
+          <div className="sm:col-span-full">
+            <Button disabled className="w-full sm:w-auto" size="lg">
+              {!isPending ? "Confirm" : "Loading..."}
+            </Button>
+          </div>
+        </form>
+      </Form>
+
+      <ToggleRoleButton />
+    </>
   );
 }
