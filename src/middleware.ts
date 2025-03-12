@@ -4,8 +4,8 @@ import {
   updateUserSessionExpiration,
 } from "./components/auth/core/session";
 
-const privateRoutes = ["/private", "/app"];
-const adminRoutes = ["/admin"];
+const privateRoutes = ["/app"];
+const adminRoutes = ["/app/admin"];
 
 export async function middleware(request: NextRequest) {
   const response = (await middlewareAuth(request)) ?? NextResponse.next();
@@ -34,7 +34,7 @@ async function middlewareAuth(request: NextRequest) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
     if (user.role !== "admin") {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL("/app", request.url));
     }
   }
 
