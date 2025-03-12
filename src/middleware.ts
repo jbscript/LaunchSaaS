@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import {
   getUserFromSession,
   updateUserSessionExpiration,
-} from "./auth/core/session";
+} from "./components/auth/core/session";
 
 const privateRoutes = ["/private", "/app"];
 const adminRoutes = ["/admin"];

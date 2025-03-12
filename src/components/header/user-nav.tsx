@@ -15,9 +15,9 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getCurrentUser } from "@/auth/nextjs/currentUser";
+import { getCurrentUser } from "@/components/auth/nextjs/currentUser";
 import { redirect } from "next/navigation";
-import { LogOutButton } from "@/auth/nextjs/components/LogOutButton";
+import { LogOutButton } from "@/components/auth/nextjs/components/LogOutButton";
 
 export async function UserNav() {
   const fullUser = await getCurrentUser({ withFullUser: true });

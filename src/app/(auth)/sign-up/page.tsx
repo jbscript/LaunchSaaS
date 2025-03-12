@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/auth/nextjs/components/SignUpForm";
+import { SignUpForm } from "@/components/auth/nextjs/components/SignUpForm";
 import Link from "next/link";
 
 export default function SignUp() {

@@ -1,4 +1,4 @@
-import { SignInForm } from "@/auth/nextjs/components/SignInForm";
+import { SignInForm } from "@/components/auth/nextjs/components/SignInForm";
 import Link from "next/link";
 
 export default async function SignIn({
