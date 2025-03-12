@@ -78,7 +78,7 @@ export async function signUp(unsafeData: z.infer<typeof signUpSchema>) {
 
 export async function logOut() {
   await removeUserFromSession(await cookies());
-  redirect("/");
+  redirect("/sign-in");
 }
 
 export async function oAuthSignIn(provider: OAuthProvider) {
