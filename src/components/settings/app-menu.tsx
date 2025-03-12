@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/collapsible";
 
 import { AppSidebar } from "./app-sidebar";
-import { Page } from "@/config/pageConfig";
+import { Page } from "@/config/pages";
 
-export function AppMenu({ page }: { page: Page }) {
+export function AppMenu({ page }: { page?: Page }) {
   const [open, setOpen] = React.useState(false);
 
   const selectedSegment = useSelectedLayoutSegment();

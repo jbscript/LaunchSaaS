@@ -2,7 +2,7 @@
 
 import { useParams, useSelectedLayoutSegment } from "next/navigation";
 import { AppLink } from "./app-link";
-import { Page } from "@/config/pageConfig";
+import { Page } from "@/config/pages";
 
 // import { ProBanner } from "../billing/pro-banner";
 
@@ -15,7 +15,7 @@ function replacePlaceholders(
   });
 }
 
-export function AppSidebar({ page }: { page: Page }) {
+export function AppSidebar({ page }: { page?: Page }) {
   const params = useParams<Record<string, string>>();
   const selectedSegment = useSelectedLayoutSegment();
 

@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils";
 import { Shell } from "@/components/header/shell";
 import { AppMenu } from "@/components/settings/app-menu";
 import { AppSidebar } from "@/components/settings/app-sidebar";
-import { PageId, pagesConfig } from "../../../config/pageConfig";
+import { pagesConfig } from "@/config/pages";
+import type { PageId } from "@/config/pages";
 
 export default function SettingsLayout({
   children,
@@ -26,7 +27,6 @@ function AppPageWithSidebarLayout({
   children: React.ReactNode;
 }) {
   const page = pagesConfig.find((page) => page.segment === id);
-  console.log("🚀 ~ page:", page);
 
   return (
     <div className="flex w-full flex-1 flex-col gap-6 lg:flex-row lg:gap-8">

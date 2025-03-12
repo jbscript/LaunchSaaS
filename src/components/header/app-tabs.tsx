@@ -1,13 +1,7 @@
 "use client";
-
 import { useSelectedLayoutSegment } from "next/navigation";
-
 import { TabsContainer, TabsLink } from "./tabs-link";
-
-export const pagesConfig = [
-  { title: "Dashboard", segment: "dashboard", href: "/dashboard" },
-  { title: "Settings", segment: "settings", href: "/settings" },
-];
+import { pagesConfig } from "@/config/pages";
 
 export function AppTabs() {
   const selectedSegment = useSelectedLayoutSegment();
