@@ -153,7 +153,7 @@ export const pagesConfig = [
     description: "Check all the responses in one place.",
     href: "/dashboard",
     icon: "activity",
-    segment: "monitors",
+    segment: "dashboard",
     children: monitorPagesConfig,
   },
   {
