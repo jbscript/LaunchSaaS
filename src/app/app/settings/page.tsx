@@ -1,5 +1,5 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
-export default function SettingsPage() {
-  return <div>SettingsPage</div>;
+export default async function SettingsPage() {
+  return redirect(`/app/settings/general`);
 }

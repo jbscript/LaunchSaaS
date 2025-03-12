@@ -2,8 +2,10 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-
+import { UserNav } from "./user-nav";
+import { Breadcrumbs } from "./breadcrumbs";
 import { AppTabs } from "./app-tabs";
+import { Shell } from "./shell";
 
 export function AppHeader() {
   return (
@@ -34,24 +36,5 @@ export function AppHeader() {
         <AppTabs />
       </Shell>
     </header>
-  );
-}
-
-import { cn } from "@/lib/utils";
-import { UserNav } from "./user-nav";
-import { Breadcrumbs } from "./breadcrumbs";
-
-type ShellProps = React.HTMLAttributes<HTMLDivElement>;
-
-function Shell({ children, className }: ShellProps) {
-  return (
-    <div
-      className={cn(
-        "w-full rounded-lg border border-border px-3 py-4 backdrop-blur-[2px] md:p-6",
-        className
-      )}
-    >
-      {children}
-    </div>
   );
 }
