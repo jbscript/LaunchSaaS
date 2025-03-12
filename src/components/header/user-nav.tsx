@@ -1,12 +1,6 @@
-// import { signOut, useSession } from "next-auth/react";
-// import { useTheme } from "next-themes";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-
-// import { ThemeIcon } from "@/components/theme/theme-icon";
-// import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "../ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -20,16 +14,17 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { getCurrentUser } from "@/auth/nextjs/currentUser";
+import { redirect } from "next/navigation";
+import { LogOutButton } from "@/auth/nextjs/components/LogOutButton";
 
-export function UserNav() {
-  //   const session = useSession();
-  const { workspaceSlug } = useParams<{ workspaceSlug: string }>();
-  //   const { setTheme, theme } = useTheme();
+export async function UserNav() {
+  const fullUser = await getCurrentUser({ withFullUser: true });
 
-  //   if (session.status !== "authenticated") {
-  //     return <Skeleton className="h-8 w-8 rounded-full" />;
-  //   }
+  if (fullUser == null) {
+    redirect("/sign-in");
+  }
 
   return (
     <DropdownMenu>
@@ -37,13 +32,12 @@ export function UserNav() {
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
             <AvatarImage
-            //   src={session.data.user?.photoUrl || undefined}
-            //   alt={
-            //     session.data.user?.name ||
-            //     `${session.data.user?.firstName} ${session.data.user?.lastName}`
-            //   }
+              src="https://github.com/shadcn.png"
+              alt={fullUser.name}
             />
-            <AvatarFallback className="bg-gradient-to-br from-foreground via-muted-foreground to-muted opacity-70" />
+            <AvatarFallback className="bg-gradient-to-br from-foreground via-muted-foreground to-muted opacity-70">
+              j
+            </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -51,21 +45,20 @@ export function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="truncate font-medium text-sm leading-none">
-              {/* {session.data.user?.name ||
-                `${session.data.user?.firstName} ${session.data.user?.lastName}`} */}
+              {fullUser?.name}
             </p>
             <p className="truncate text-muted-foreground text-xs leading-none">
-              {/* {session.data.user?.email} */}
+              {fullUser?.email}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href={`/app/${workspaceSlug}/settings/billing`}>Billing</Link>
+            <Link href={`/app/settings/billing`}>Billing</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/app/${workspaceSlug}/settings/user`}>Profile</Link>
+            <Link href={`/app/settings/user`}>Profile</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>{" "}
         <DropdownMenuSeparator />
@@ -89,7 +82,6 @@ export function UserNav() {
                     className="justify-between capitalize [&_svg]:text-muted-foreground [&_svg]:data-[highlighted]:text-foreground [&_svg]:data-[state=open]:text-foreground"
                   >
                     {option}
-                    {/* <ThemeIcon theme={option} /> */}
                   </DropdownMenuCheckboxItem>
                 ))}
               </DropdownMenuSubContent>
@@ -97,10 +89,8 @@ export function UserNav() {
           </DropdownMenuSub>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-        // onClick={() => signOut()}
-        >
-          Log out
+        <DropdownMenuItem>
+          <LogOutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

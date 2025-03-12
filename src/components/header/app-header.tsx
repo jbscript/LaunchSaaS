@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";

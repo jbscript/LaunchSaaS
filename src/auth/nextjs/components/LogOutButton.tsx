@@ -1,12 +1,16 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { logOut } from "../actions"
+import { Button } from "@/components/ui/button";
+import { logOut } from "../actions";
 
 export function LogOutButton() {
   return (
-    <Button variant="destructive" onClick={async () => await logOut()}>
+    <Button
+      variant="destructive"
+      className="w-full"
+      onClick={async () => await logOut()}
+    >
       Log Out
     </Button>
-  )
+  );
 }
