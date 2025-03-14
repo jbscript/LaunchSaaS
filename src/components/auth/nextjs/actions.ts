@@ -14,6 +14,7 @@ import {
 import { cookies } from "next/headers";
 import { createUserSession, removeUserFromSession } from "../core/session";
 import { getOAuthClient } from "../core/oauth/base";
+import { generateAndSendToken } from "../core/generateAndSendToken";
 
 export async function signIn(unsafeData: z.infer<typeof signInSchema>) {
   const { success, data } = signInSchema.safeParse(unsafeData);
@@ -21,7 +22,14 @@ export async function signIn(unsafeData: z.infer<typeof signInSchema>) {
   if (!success) return "Unable to log you in";
 
   const user = await db.query.UserTable.findFirst({
-    columns: { password: true, salt: true, id: true, email: true, role: true },
+    columns: {
+      password: true,
+      salt: true,
+      id: true,
+      email: true,
+      emailVerified: true,
+      role: true,
+    },
     where: eq(UserTable.email, data.email),
   });
 
@@ -36,6 +44,7 @@ export async function signIn(unsafeData: z.infer<typeof signInSchema>) {
   });
 
   if (!isCorrectPassword) return "Unable to log you in";
+  if (!user.emailVerified) return "Please verify your email before logging in";
 
   await createUserSession(user, await cookies());
 
@@ -69,6 +78,7 @@ export async function signUp(unsafeData: z.infer<typeof signUpSchema>) {
 
     if (user == null) return "Unable to create account";
     await createUserSession(user, await cookies());
+    await generateAndSendToken({ email: data.email, userId: user.id });
   } catch {
     return "Unable to create account";
   }

@@ -62,3 +62,27 @@ export const userOauthAccountRelationships = relations(
     }),
   })
 );
+
+// Tokens Table
+export const tokenTypes = ["reset_password", "email_verification"] as const;
+export type TokenType = (typeof tokenTypes)[number];
+export const tokenTypeEnum = pgEnum("token_type", tokenTypes);
+
+export const UserTokenTable = pgTable("user_tokens", {
+  id: uuid().primaryKey().defaultRandom(),
+  userId: uuid()
+    .notNull()
+    .references(() => UserTable.id, { onDelete: "cascade" }),
+  token: text().notNull().unique(),
+  type: tokenTypeEnum().notNull(), // Specifies if it's a reset password or email verification token
+  expiresAt: timestamp({ withTimezone: true }).notNull(),
+  used: boolean().notNull().default(false),
+  createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+});
+
+export const userTokenRelations = relations(UserTokenTable, ({ one }) => ({
+  user: one(UserTable, {
+    fields: [UserTokenTable.userId],
+    references: [UserTable.id],
+  }),
+}));
