@@ -62,6 +62,7 @@ function connectUserToAccount(
         .insert(UserTable)
         .values({
           email: email,
+          emailVerified: true,
           name: name,
         })
         .returning({ id: UserTable.id, role: UserTable.role });
