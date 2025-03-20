@@ -19,8 +19,8 @@ export const db = drizzle({
 });
 
 async function ensureAdminUser() {
-  const adminEmail = "admin@example.com"; // Change this to your preferred admin email
-  const adminPassword = "securepassword"; // Change this before production
+  const adminEmail = process.env.ADMIN_EMAIL ?? "admin"; // Change this to your preferred admin email
+  const adminPassword = process.env.ADMIN_PASSWORD ?? "admin"; // Change this before production
 
   // Check if an admin user already exists
   const existingAdmin = await db
