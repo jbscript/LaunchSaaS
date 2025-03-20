@@ -3,21 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getCurrentUser } from "@/components/auth/nextjs/currentUser";
 import { redirect } from "next/navigation";
 import { LogOutButton } from "@/components/auth/nextjs/components/LogOutButton";
+import { ModeToggle } from "../mode-toggle";
+import { Moon, Sun } from "lucide-react";
 
 export async function UserNav() {
   const fullUser = await getCurrentUser({ withFullUser: true });
@@ -62,31 +59,15 @@ export async function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuGroup>{" "}
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuSub>
-            {/* REMINDER: consider using that the data-state styles as default */}
-            <DropdownMenuSubTrigger className="gap-1 [&_svg]:text-muted-foreground [&_svg]:data-[highlighted]:text-foreground [&_svg]:data-[state=open]:text-foreground">
-              <div className="flex w-full flex-row items-center justify-between">
-                <span>Switch theme</span>
-                {/* <ThemeIcon theme={theme} /> */}
-              </div>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-                {["light", "dark", "system"].map((option) => (
-                  <DropdownMenuCheckboxItem
-                    key={option}
-                    // checked={theme === option}
-                    // onClick={() => setTheme(option)}
-                    className="justify-between capitalize [&_svg]:text-muted-foreground [&_svg]:data-[highlighted]:text-foreground [&_svg]:data-[state=open]:text-foreground"
-                  >
-                    {option}
-                  </DropdownMenuCheckboxItem>
-                ))}
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
+        <DropdownMenuGroup className="p-0">
+          <ModeToggle>
+            <DropdownMenuItem>
+              <div>Theme</div>
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 dark:hidden" />
+              <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </DropdownMenuItem>
+          </ModeToggle>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
