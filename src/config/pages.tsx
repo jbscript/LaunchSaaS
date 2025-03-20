@@ -19,13 +19,13 @@ export const settingsPagesConfig: Page[] = [
     icon: "cog",
     segment: "general",
   },
-  {
-    title: "Team",
-    description: "Team settings for the workspace.",
-    href: "/settings/team",
-    icon: "users",
-    segment: "team",
-  },
+  // {
+  //   title: "Team",
+  //   description: "Team settings for the workspace.",
+  //   href: "/settings/team",
+  //   icon: "users",
+  //   segment: "team",
+  // },
 
   // {
   //   title: "Billing",
@@ -34,20 +34,20 @@ export const settingsPagesConfig: Page[] = [
   //   icon: "credit-card",
   //   segment: "billing",
   // },
-  {
-    title: "Appearance",
-    description: "Appearance settings for the workspace.",
-    href: "/settings/appearance",
-    icon: "sun",
-    segment: "appearance",
-  },
-  {
-    title: "User",
-    description: "Profile settings for the user.",
-    href: "/settings/user",
-    icon: "user",
-    segment: "user",
-  },
+  // {
+  //   title: "Appearance",
+  //   description: "Appearance settings for the workspace.",
+  //   href: "/settings/appearance",
+  //   icon: "sun",
+  //   segment: "appearance",
+  // },
+  // {
+  //   title: "User",
+  //   description: "Profile settings for the user.",
+  //   href: "/settings/user",
+  //   icon: "user",
+  //   segment: "user",
+  // },
 ];
 
 export const monitorPagesConfig: Page[] = [

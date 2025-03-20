@@ -29,7 +29,7 @@ export function AppSidebar({ page }: { page?: Page }) {
         </p>
         <ul className="grid gap-2">
           {page?.children?.map(({ title, segment, icon, disabled, href }) => {
-            const prefix = `/app/${params.workspaceSlug}`;
+            const prefix = `/app`;
             return (
               <li key={title} className="w-full">
                 <AppLink

@@ -23,6 +23,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import AuthNavButtons from "./_components/auth-nav-buttons";
+import Image from "next/image";
 
 interface MenuItem {
   title: string;
@@ -134,7 +135,7 @@ export default async function HomePage({
           <nav className="hidden justify-between lg:flex">
             <div className="flex items-center gap-6">
               <a href={logo.url} className="flex items-center gap-2">
-                <img src={logo.src} className="w-8" alt={logo.alt} />
+                <Image src={logo.src} className="w-8" alt={logo.alt} />
                 <span className="text-lg font-semibold">{logo.title}</span>
               </a>
               <div className="flex items-center">
@@ -153,7 +154,7 @@ export default async function HomePage({
           <div className="block lg:hidden">
             <div className="flex items-center justify-between">
               <a href={logo.url} className="flex items-center gap-2">
-                <img src={logo.src} className="w-8" alt={logo.alt} />
+                <Image src={logo.src} className="w-8" alt={logo.alt} />
                 <span className="text-lg font-semibold">{logo.title}</span>
               </a>
               <Sheet>
@@ -166,7 +167,7 @@ export default async function HomePage({
                   <SheetHeader>
                     <SheetTitle>
                       <a href={logo.url} className="flex items-center gap-2">
-                        <img src={logo.src} className="w-8" alt={logo.alt} />
+                        <Image src={logo.src} className="w-8" alt={logo.alt} />
                         <span className="text-lg font-semibold">
                           {logo.title}
                         </span>
