@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { signInSchema, signUpSchema } from "./schemas";
 import { db } from "@/drizzle/db";
 import { OAuthProvider, UserTable, UserTokenTable } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import {
   comparePasswords,
   generateSalt,
@@ -136,10 +136,19 @@ export async function verifyAndCreateSession(token: string) {
 
 export async function forgotPassword(email: string) {
   const user = await db.query.UserTable.findFirst({
+    columns: { id: true },
     where: eq(UserTable.email, email),
   });
 
   if (!user) return "No account found for this email";
+
+  // delete existing reset password tokens
+  await db.delete(UserTokenTable).where(
+    and(
+      eq(UserTokenTable.userId, user.id),
+      eq(UserTokenTable.type, "reset_password") // Ensure it's only for reset_password tokens
+    )
+  );
 
   await generateAndSendToken({
     email,
@@ -147,5 +156,36 @@ export async function forgotPassword(email: string) {
     type: "reset_password",
   });
 
-  redirect(`/forgot-password?message=Password reset email sent to ${email}`);
+  redirect(`/forgot-password?email=${email}`);
+}
+
+export async function resetPassword({
+  password,
+  token,
+}: {
+  password: string;
+  token: string;
+}) {
+  const tokenRecord = await db.query.UserTokenTable.findFirst({
+    where: eq(UserTokenTable.token, token),
+  });
+
+  if (!tokenRecord) return "Invalid token.";
+  if (new Date(tokenRecord.expiresAt) < new Date()) return "Token has expired.";
+
+  const salt = generateSalt();
+  const hashedPassword = await hashPassword(password, salt);
+
+  await db.transaction(async (trx) => {
+    await trx
+      .update(UserTable)
+      .set({ password: hashedPassword, salt })
+      .where(eq(UserTable.id, tokenRecord.userId));
+
+    await trx
+      .delete(UserTokenTable)
+      .where(eq(UserTokenTable.id, tokenRecord.id));
+  });
+
+  redirect("/sign-in");
 }

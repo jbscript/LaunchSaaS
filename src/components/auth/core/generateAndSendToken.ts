@@ -52,7 +52,7 @@ export async function generateAndSendToken({
       subject: "Reset your password",
       text: `
       Click the link below to reset your password:
-      ${env.SITE_URL}/reset-password?token=${token}
+      ${env.SITE_URL}/forgot-password?token=${token}
       `,
     });
   }
