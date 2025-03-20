@@ -1,178 +1,115 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Filter, Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { ArrowRight, Github, Globe } from "lucide-react";
 import NavbarLanding from "@/components/landing/navbar";
+import Link from "next/link";
 
 export default async function HomePage() {
   return (
     <div className="container mx-auto p-4">
       <NavbarLanding />
-      <main className="container mx-auto px-4 py-16 md:py-24">
-        {/* Notification Banner */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-secondary-foreground backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 text-sm">
-            <span className="text-gray-300">
-              Introducing: Better Auth Integration
-            </span>
-            <a
-              href="#"
-              className="text-purple-400 hover:text-purple-300 flex items-center gap-1"
-            >
-              Read more <ArrowRight className="h-3 w-3" />
-            </a>
-          </div>
-        </div>
 
-        {/* Hero Content */}
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Build intuitive apps that your customers will love
-          </h1>
-          <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-            Saas UI is a purpose-built toolkit for building high-quality apps.
-            Start with our free component library and build fullstack apps with
-            production-ready templates and starter kits.
-          </p>
+      <main className="flex-1">
+        <section className="container mx-auto px-4 py-16 text-center md:py-24">
+          <div className="mx-auto max-w-3xl">
+            <div className="mb-8 inline-flex items-center rounded-full border border-gray-200 px-3 py-1 text-sm">
+              <span className="mr-2">Proudly Open Source</span>
+              <ArrowRight className="h-3 w-3" />
+            </div>
 
-          {/* Technology Badges */}
-          <div className="flex justify-center gap-6 mb-12">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center">
-                <span className="text-xs">⚛️</span>
-              </div>
-              <span>React</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center">
-                <span className="text-xs">C</span>
-              </div>
-              <span>chakra</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center">
-                <span className="text-xs">F</span>
-              </div>
-              <span>Figma</span>
+            <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-6xl">
+              A better way to monitor your services.
+            </h1>
+
+            <p className="mx-auto mb-10 max-w-2xl text-lg text-gray-600">
+              Monitor your API and website globally, identify performance
+              issues, downtime and receive alerts before your users are
+              affected.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href="#"
+                className="rounded-full bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-800"
+              >
+                Get Started
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-2 rounded-full border border-gray-200 px-6 py-3 text-sm font-medium hover:bg-gray-50"
+              >
+                <Github className="h-4 w-4" />
+                Star on GitHub
+                <span className="ml-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs">
+                  7K
+                </span>
+              </Link>
             </div>
           </div>
+        </section>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button className="bg-purple-600 hover:bg-purple-700 text-white rounded-md px-6 py-5">
-              View Demo
-            </Button>
-            <Button variant="outline" className="rounded-md px-6 py-5">
-              Read documentation <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+        <section className="container mx-auto px-4 py-16">
+          <div className="text-center mb-16">
+            <h2 className="text-sm font-medium text-gray-500 mb-12">
+              Trusted By
+            </h2>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+              <div className="flex items-center gap-1">
+                <div className="font-bold">HAKKO</div>
+                <ArrowRight className="h-3 w-3" />
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="font-medium">Documentso</div>
+                <ArrowRight className="h-3 w-3" />
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="font-medium">midday</div>
+                <ArrowRight className="h-3 w-3" />
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="font-bold">Cal.com</div>
+                <ArrowRight className="h-3 w-3" />
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* App Screenshot */}
-        <div className="relative max-w-5xl mx-auto">
-          <div className="rounded-lg border border-gray-700 overflow-hidden shadow-2xl">
-            <div className="bg-gray-900 p-4">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-gray-800 rounded flex items-center justify-center">
-                    <span className="text-xs font-bold">S</span>
+          <div className="mx-auto max-w-4xl rounded-xl bg-gray-50 p-8 md:p-12">
+            <div className="text-center mb-10">
+              <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-white">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold md:text-3xl">
+                Synthetic Monitoring
+              </h2>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              <div className="md:w-1/2">
+                <div className="aspect-square w-full max-w-xs mx-auto bg-black rounded-full"></div>
+              </div>
+              <div className="md:w-1/2 space-y-6">
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-white">
+                    <Globe className="h-3 w-3" />
                   </div>
-                  <span className="text-sm font-medium">Saas UI</span>
+                  <div>
+                    <h3 className="font-medium">Latency Monitoring</h3>
+                    <p className="text-gray-600 mt-1">
+                      Monitor the latency of your endpoints from all over the
+                      world. We support all the continents.
+                    </p>
+                  </div>
                 </div>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    className="w-64 pl-9 pr-4 py-1.5 bg-gray-800 border-gray-700 text-sm rounded-md"
-                    placeholder="Search by name or email..."
-                  />
-                </div>
-                <Button
-                  size="sm"
-                  className="bg-purple-600 hover:bg-purple-700 text-white text-xs"
-                >
-                  Add person
-                </Button>
-              </div>
-
-              <div className="flex gap-2 mb-4">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-gray-300"
-                >
-                  All
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-gray-300"
-                >
-                  Leads
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-gray-300"
-                >
-                  Customers
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-xs text-gray-300 ml-auto"
-                >
-                  <Filter className="h-3 w-3 mr-1" /> Filter
-                </Button>
-              </div>
-
-              <div className="bg-gray-800 rounded-md p-4">
-                <table className="w-full">
-                  <thead>
-                    <tr className="text-xs text-gray-400 border-b border-gray-700">
-                      <th className="pb-2 text-left font-medium">Status</th>
-                      <th className="pb-2 text-left font-medium">Name</th>
-                      <th className="pb-2 text-left font-medium">Email</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="text-sm border-b border-gray-700">
-                      <td className="py-3">
-                        <span className="px-2 py-1 bg-green-900/30 text-green-400 rounded-full text-xs">
-                          Active
-                        </span>
-                      </td>
-                      <td className="py-3">Joshua Klein</td>
-                      <td className="py-3 text-gray-400">
-                        joshua.klein@example.com
-                      </td>
-                    </tr>
-                    <tr className="text-sm border-b border-gray-700">
-                      <td className="py-3">
-                        <span className="px-2 py-1 bg-blue-900/30 text-blue-400 rounded-full text-xs">
-                          Partner
-                        </span>
-                      </td>
-                      <td className="py-3">Mohammed Rodriguez</td>
-                      <td className="py-3 text-gray-400">
-                        mohammed_rodriguez@example.org
-                      </td>
-                    </tr>
-                    <tr className="text-sm">
-                      <td className="py-3">
-                        <span className="px-2 py-1 bg-purple-900/30 text-purple-400 rounded-full text-xs">
-                          Lead
-                        </span>
-                      </td>
-                      <td className="py-3">Markusz Johnson</td>
-                      <td className="py-3 text-gray-400">
-                        markusz.johnson@mac.dev
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </main>
     </div>
   );

@@ -127,7 +127,7 @@ export default function NavbarLanding({
   ],
 }: Navbar1Props) {
   return (
-    <section className="py-4">
+    <section className="py-4 sticky top-2 z-50 rounded-lg border border-border px-3 backdrop-blur-[2px] md:p-4">
       <div className="container">
         {/* Desktop Menu */}
         <nav className="hidden justify-between lg:flex">
