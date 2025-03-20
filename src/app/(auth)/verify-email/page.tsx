@@ -1,50 +1,101 @@
-import { db } from "@/drizzle/db";
-import { UserTable, UserTokenTable } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+"use client"; // ✅ Convert to Client Component
 
-type VerifyEmailPageProps = {
-  searchParams: { token?: string };
-};
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { verifyAndCreateSession } from "@/components/auth/nextjs/actions";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-// Helper function to fetch the token record
-async function getTokenRecord(token: string) {
-  return db.query.UserTokenTable.findFirst({
-    where: eq(UserTokenTable.token, token),
-  });
+export default function VerifyEmailPage() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+  const email = searchParams.get("email");
+
+  if (email) return <CheckEmail />;
+  if (token) return <VerifyEmail />;
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-center">
+      <p>Invalid request.</p>
+    </div>
+  );
 }
 
-// Helper function to verify email and delete token
-async function verifyEmail(userId: string, tokenId: string) {
-  await db.transaction(async (trx) => {
-    await trx
-      .update(UserTable)
-      .set({ emailVerified: true })
-      .where(eq(UserTable.id, userId)); // userId is now correctly a string
+function CheckEmail() {
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
 
-    await trx.delete(UserTokenTable).where(eq(UserTokenTable.id, tokenId)); // tokenId is also a string
-  });
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center ">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">
+            Verify Your Email
+          </CardTitle>
+          <CardDescription>
+            We&apos;ve sent a verification email to{" "}
+            <span className="font-medium">{email}</span>. Click the link in the
+            email to confirm your account.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            If you didn&apos;t receive the email, check your spam folder.
+            {/* or{" "}
+            <Link href="#" className="font-medium underline underline-offset-4" prefetch={false}>
+              resend verification
+            </Link> */}
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
 
-export default async function VerifyEmailPage({
-  searchParams,
-}: VerifyEmailPageProps) {
-  const token = searchParams?.token;
+function VerifyEmail() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [status, setStatus] = useState<"loading" | "success" | "error">(
+    "loading"
+  );
 
-  if (!token) {
-    return <div>Invalid request. No token provided.</div>;
-  }
+  useEffect(() => {
+    const token = searchParams.get("token");
 
-  const tokenRecord = await getTokenRecord(token);
+    if (!token) {
+      setStatus("error");
+      return;
+    }
 
-  if (!tokenRecord) {
-    return <div>Invalid token.</div>;
-  }
+    const verifyEmail = async () => {
+      try {
+        const result = await verifyAndCreateSession(token);
 
-  if (new Date(tokenRecord.expiresAt) < new Date()) {
-    return <div>Token has expired.</div>;
-  }
+        if (result.error) {
+          setStatus("error");
+        } else {
+          setStatus("success");
+          router.push("/app"); // ✅ Redirect after success
+        }
+      } catch (error) {
+        console.error("Verification error:", error);
+        setStatus("error");
+      }
+    };
 
-  await verifyEmail(tokenRecord.userId, tokenRecord.id);
+    verifyEmail();
+  }, [searchParams, router]);
 
-  return <div>Email successfully verified!</div>;
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-center">
+      {status === "loading" && <p>Verifying your email...</p>}
+
+      {status === "error" && <p>Invalid or expired token.</p>}
+    </div>
+  );
 }

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { redirect } from "next/navigation";
 import { signInSchema, signUpSchema } from "./schemas";
 import { db } from "@/drizzle/db";
-import { OAuthProvider, UserTable } from "@/drizzle/schema";
+import { OAuthProvider, UserTable, UserTokenTable } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import {
   comparePasswords,
@@ -77,13 +77,12 @@ export async function signUp(unsafeData: z.infer<typeof signUpSchema>) {
       .returning({ id: UserTable.id, role: UserTable.role });
 
     if (user == null) return "Unable to create account";
-    await createUserSession(user, await cookies());
     await generateAndSendToken({ email: data.email, userId: user.id });
   } catch {
     return "Unable to create account";
   }
 
-  redirect("/app");
+  redirect(`/verify-email?email=${data.email}`);
 }
 
 export async function logOut() {
@@ -94,4 +93,39 @@ export async function logOut() {
 export async function oAuthSignIn(provider: OAuthProvider) {
   const oAuthClient = getOAuthClient(provider);
   redirect(oAuthClient.createAuthUrl(await cookies()));
+}
+
+export async function verifyAndCreateSession(token: string) {
+  // Fetch token record
+  const tokenRecord = await db.query.UserTokenTable.findFirst({
+    where: eq(UserTokenTable.token, token),
+  });
+
+  if (!tokenRecord) return { error: "Invalid token." };
+  if (new Date(tokenRecord.expiresAt) < new Date())
+    return { error: "Token has expired." };
+
+  // Get user
+  const user = await db.query.UserTable.findFirst({
+    columns: { id: true, role: true },
+    where: eq(UserTable.id, tokenRecord.userId),
+  });
+
+  if (!user) return { error: "Unable to create account." };
+
+  // Verify email and delete token
+  await db.transaction(async (trx) => {
+    await trx
+      .update(UserTable)
+      .set({ emailVerified: true })
+      .where(eq(UserTable.id, tokenRecord.userId));
+
+    await trx
+      .delete(UserTokenTable)
+      .where(eq(UserTokenTable.id, tokenRecord.id));
+  });
+
+  await createUserSession(user, await cookies());
+
+  redirect("/app");
 }
