@@ -44,7 +44,7 @@ export async function signIn(unsafeData: z.infer<typeof signInSchema>) {
     salt: user.salt,
   });
 
-  if (!isCorrectPassword) return "Unable to log you in";
+  if (!isCorrectPassword) return "Wrong Password";
   if (!user.emailVerified) return "Please verify your email before logging in";
 
   await createUserSession(user, await cookies());

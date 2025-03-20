@@ -1,3 +1,4 @@
+import { UserRole } from "@/drizzle/schema";
 import { ValidIcon } from "@/icons";
 
 export type Page = {
@@ -9,6 +10,7 @@ export type Page = {
   disabled?: boolean;
   segment: string;
   children?: Page[];
+  role?: UserRole[];
 };
 
 export const settingsPagesConfig: Page[] = [
@@ -149,6 +151,7 @@ export const pagesConfig = [
     icon: "activity",
     segment: "dashboard",
     children: monitorPagesConfig,
+    role: ["user", "admin"] as UserRole[],
   },
   {
     title: "Settings",
@@ -157,6 +160,7 @@ export const pagesConfig = [
     icon: "cog",
     segment: "settings",
     children: settingsPagesConfig,
+    role: ["user", "admin"] as UserRole[],
   },
   {
     title: "Admin",
@@ -164,6 +168,7 @@ export const pagesConfig = [
     href: "/admin",
     icon: "cog",
     segment: "admin",
+    role: ["admin"] as UserRole[],
   },
 ] as const satisfies readonly Page[];
 

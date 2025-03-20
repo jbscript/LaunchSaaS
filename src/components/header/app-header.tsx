@@ -6,8 +6,13 @@ import { UserNav } from "./user-nav";
 import { Breadcrumbs } from "./breadcrumbs";
 import { AppTabs } from "./app-tabs";
 import { Shell } from "./shell";
+import { getCurrentUser } from "../auth/nextjs/currentUser";
+import { redirect } from "next/navigation";
 
-export function AppHeader() {
+export async function AppHeader() {
+  const fullUser = await getCurrentUser({ withFullUser: true });
+  if (!fullUser) redirect("/sing-in");
+
   return (
     <header className="sticky top-2 z-50 w-full border-border">
       <Shell className="bg-background/70 px-3 py-3 backdrop-blur-lg md:px-6 md:py-3">
@@ -33,7 +38,7 @@ export function AppHeader() {
             </div>
           </div>
         </div>
-        <AppTabs />
+        <AppTabs role={fullUser?.role} />
       </Shell>
     </header>
   );
