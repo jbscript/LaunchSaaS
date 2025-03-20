@@ -1,10 +1,6 @@
 
-
 # 🚀 **LaunchSaas**  
 A powerful SaaS boilerplate to kickstart your next project effortlessly.
-
-<img src="https://github.com/user-attachments/assets/e374939b-653b-45ef-9fef-ceb5cb2c66ee" alt="LaunchSaas Logo" width="70">
-
 
 ---
 
