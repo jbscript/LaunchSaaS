@@ -2,7 +2,6 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -14,8 +13,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { forgotPasswordSchema } from "../schemas";
+import { forgotPassword } from "../actions";
+import { useState } from "react";
 
 export default function ForgotPasswordForm() {
+  const [error, setError] = useState<string>();
+  const [loading, setloading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof forgotPasswordSchema>>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
@@ -24,18 +27,17 @@ export default function ForgotPasswordForm() {
   });
 
   async function onSubmit(values: z.infer<typeof forgotPasswordSchema>) {
-    try {
-      // Assuming a function to send reset email
-      console.log(values);
-      toast.success("Password reset email sent. Please check your inbox.");
-    } catch (error) {
-      console.error("Error sending password reset email", error);
-      toast.error("Failed to send password reset email. Please try again.");
-    }
+    setloading(true);
+    const error = await forgotPassword(values.email);
+    setError(error);
+    setloading(false);
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {error && <p className="text-destructive">{error}</p>}
+
         <div className="grid gap-4">
           <FormField
             control={form.control}
@@ -56,8 +58,8 @@ export default function ForgotPasswordForm() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
-            Send Reset Link
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Loading..." : "Send Reset Link"}
           </Button>
         </div>
       </form>

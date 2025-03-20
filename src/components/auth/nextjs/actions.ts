@@ -77,7 +77,11 @@ export async function signUp(unsafeData: z.infer<typeof signUpSchema>) {
       .returning({ id: UserTable.id, role: UserTable.role });
 
     if (user == null) return "Unable to create account";
-    await generateAndSendToken({ email: data.email, userId: user.id });
+    await generateAndSendToken({
+      email: data.email,
+      userId: user.id,
+      type: "email_verification",
+    });
   } catch {
     return "Unable to create account";
   }
@@ -128,4 +132,20 @@ export async function verifyAndCreateSession(token: string) {
   await createUserSession(user, await cookies());
 
   redirect("/app");
+}
+
+export async function forgotPassword(email: string) {
+  const user = await db.query.UserTable.findFirst({
+    where: eq(UserTable.email, email),
+  });
+
+  if (!user) return "No account found for this email";
+
+  await generateAndSendToken({
+    email,
+    userId: user.id,
+    type: "reset_password",
+  });
+
+  redirect(`/forgot-password?message=Password reset email sent to ${email}`);
 }
