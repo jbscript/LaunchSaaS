@@ -12,7 +12,6 @@ export default async function GeneralPage() {
   return (
     <div className="flex flex-col gap-8">
       <GeneralUserForm defaultValues={fullUser} />
-      {fullUser.role}
       <Separator />
     </div>
   );

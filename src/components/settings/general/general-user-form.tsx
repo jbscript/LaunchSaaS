@@ -1,6 +1,7 @@
 "use client";
-
-import { ToggleRoleButton } from "@/app/_components/ToggleRoleButton";
+// import { ToggleRoleButton } from "@/app/_components/ToggleRoleButton";
+import { updateUser } from "@/components/auth/nextjs/actions";
+import { signUpSchema } from "@/components/auth/nextjs/schemas";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,32 +14,26 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-// or insertWorkspaceSchema.pick({ name: true }) and updating name to not be nullable
-const schema = z.object({
-  name: z.string().min(3, "workspace names must contain at least 3 characters"),
-  email: z.string().email("Invalid email address"),
-  role: z.string().min(3, "role must contain at least 3 characters"),
-});
-type Schema = z.infer<typeof schema>;
+const userNameSchema = signUpSchema.pick({ name: true });
+
+type Schema = z.infer<typeof userNameSchema>;
 
 export function GeneralUserForm({ defaultValues }: { defaultValues: Schema }) {
   const form = useForm<Schema>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(userNameSchema),
     defaultValues,
   });
-  const router = useRouter();
+
   const [isPending, startTransition] = useTransition();
 
   async function onSubmit(data: Schema) {
     startTransition(async () => {
       try {
-        console.log("data==>", data);
-        router.refresh();
+        await updateUser(data);
       } catch {
         console.log("error");
       }
@@ -55,7 +50,6 @@ export function GeneralUserForm({ defaultValues }: { defaultValues: Schema }) {
           <FormField
             control={form.control}
             name="name"
-            disabled
             render={({ field }) => (
               <FormItem className="sm:col-span-4">
                 <FormLabel>Name</FormLabel>
@@ -68,33 +62,15 @@ export function GeneralUserForm({ defaultValues }: { defaultValues: Schema }) {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="email"
-            disabled
-            render={({ field }) => (
-              <FormItem className="sm:col-span-4">
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="Email" {...field} />
-                </FormControl>
-                <FormDescription>
-                  The email address of the workspace owner.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           <div className="sm:col-span-full">
-            <Button disabled className="w-full sm:w-auto" size="lg">
+            <Button className="w-full sm:w-auto" size="lg">
               {!isPending ? "Confirm" : "Loading..."}
             </Button>
           </div>
         </form>
       </Form>
 
-      <ToggleRoleButton />
+      {/* <ToggleRoleButton /> */}
     </>
   );
 }

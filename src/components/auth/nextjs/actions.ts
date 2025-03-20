@@ -15,6 +15,7 @@ import { cookies } from "next/headers";
 import { createUserSession, removeUserFromSession } from "../core/session";
 import { getOAuthClient } from "../core/oauth/base";
 import { generateAndSendToken } from "../core/generateAndSendToken";
+import { getCurrentUser } from "./currentUser";
 
 export async function signIn(unsafeData: z.infer<typeof signInSchema>) {
   const { success, data } = signInSchema.safeParse(unsafeData);
@@ -188,4 +189,14 @@ export async function resetPassword({
   });
 
   redirect("/sign-in");
+}
+
+export async function updateUser({ name }: { name: string }) {
+  const fullUser = await getCurrentUser({ withFullUser: true });
+  if (!fullUser) return "Unable to update user";
+
+  await db
+    .update(UserTable)
+    .set({ name })
+    .where(eq(UserTable.id, fullUser?.id));
 }
