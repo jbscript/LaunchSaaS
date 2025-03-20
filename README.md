@@ -1,3 +1,6 @@
+
+<img src="https://github.com/user-attachments/assets/e374939b-653b-45ef-9fef-ceb5cb2c66ee" alt="Logo" width="100">
+
 ## 🥇 Features
 
 - Create account
