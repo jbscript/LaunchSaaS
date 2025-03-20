@@ -36,19 +36,19 @@ export default async function HomePage() {
 
           {/* Technology Badges */}
           <div className="flex justify-center gap-6 mb-12">
-            <div className="flex items-center gap-2 text-gray-300">
+            <div className="flex items-center gap-2 text-muted-foreground">
               <div className="w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center">
                 <span className="text-xs">⚛️</span>
               </div>
               <span>React</span>
             </div>
-            <div className="flex items-center gap-2 text-gray-300">
+            <div className="flex items-center gap-2 text-muted-foreground">
               <div className="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center">
                 <span className="text-xs">C</span>
               </div>
               <span>chakra</span>
             </div>
-            <div className="flex items-center gap-2 text-gray-300">
+            <div className="flex items-center gap-2 text-muted-foreground">
               <div className="w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center">
                 <span className="text-xs">F</span>
               </div>

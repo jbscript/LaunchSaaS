@@ -51,7 +51,7 @@ export default function NavbarLanding({
     url: "https://www.shadcnblocks.com",
     src: "https://www.shadcnblocks.com/images/block/block-1.svg",
     alt: "logo",
-    title: "Shadcnblocks.com",
+    title: "LaunchSaas.com",
   },
   menu = [
     { title: "Home", url: "#" },
