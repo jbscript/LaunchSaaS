@@ -1,10 +1,22 @@
 import { UserTable } from "./schema";
-import { db } from "./db";
 import {
   generateSalt,
   hashPassword,
 } from "@/components/auth/core/passwordHasher";
 import { eq } from "drizzle-orm";
+import "dotenv/config";
+import { drizzle } from "drizzle-orm/node-postgres";
+import * as schema from "./schema";
+
+export const db = drizzle({
+  schema,
+  connection: {
+    password: process.env.DB_PASSWORD,
+    user: process.env.DB_USER,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+  },
+});
 
 async function ensureAdminUser() {
   const adminEmail = "admin@example.com"; // Change this to your preferred admin email
